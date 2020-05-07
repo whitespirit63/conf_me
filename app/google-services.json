@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "462242960308",
+    "firebase_url": "https://confme-fa7aa.firebaseio.com",
+    "project_id": "confme-fa7aa",
+    "storage_bucket": "confme-fa7aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462242960308:android:ca30501af48379334518e1",
+        "android_client_info": {
+          "package_name": "com.hfad.conf_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462242960308-3rmqllh8qupve6k5d13tcfpsulu0fmub.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hfad.conf_me",
+            "certificate_hash": "75b9bc8350289bcf518f00902c5595cd637ee2be"
+          }
+        },
+        {
+          "client_id": "462242960308-fvndrnv1updcspgm7lidg2j5tuibrjoj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM0hswAp8EPPMI5hZIM0wt52hMPZkTK1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462242960308-fvndrnv1updcspgm7lidg2j5tuibrjoj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

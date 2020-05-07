@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#C025E0</color>
+  <color name="colorPrimaryDark">#117756</color>
+  <color name="primary_darker">#CC1D1D</color>
+  <color name="colorAccent">#FFFFFF</color>
+  <color name="ripple_effect">#faa535</color>
+  <color name="btn_sign_in">#ed7171</color>
+  <color name="btn_sign_in_stroke">#d66060</color>
+  <color name="btn_register">#e27a5d</color>
+  <color name="btn_register_stroke">#d16e53</color>
+  <color name="background">#C025E0</color>
+  <color name="orange_light">#FCC250</color>
+  <color name="orange_dark">#FC7208</color>
+  <color name="white">#FFFFFF</color>
+  <color name="green_dark">#00C315</color>
+  <color name="green_light">#68D87A</color>
+  <color name="black">#000000</color>
+  <color name="lightgrey">#BBAFAF</color>
+
+</resources>
