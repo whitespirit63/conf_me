@@ -6,11 +6,8 @@
 
     <item>
         <shape android:shape="rectangle">
-            <gradient
-                android:angle="315"
-                android:endColor="@color/green_dark"
-                android:startColor="@color/green_light" />
-            <stroke android:color="@color/green_dark" android:width="2dp"></stroke>
+            <solid android:color="@color/white"/>
+
             <corners android:radius="22dp"></corners>
         </shape>
 

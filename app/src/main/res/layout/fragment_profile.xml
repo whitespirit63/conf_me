@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+
     tools:context="com.hfad.conf_me.ProfileFragment"
     >
 
@@ -38,18 +38,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_name"
-                android:text="Name"
+                android:text=""
                 android:textSize="24dp"
 
-                android:textColor="@color/white"
+                android:textColor="@color/purple"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit profile"
+                android:text="Frontend developer"
                 android:textSize="16dp"
 
-                android:textColor="@color/white"
+                android:textColor="@color/darkgrey"
                 />
 
         </LinearLayout>
@@ -61,12 +61,81 @@
             app:srcCompat="@drawable/ic_chevron_right_black_24dp"
             android:layout_gravity="center_vertical"></ImageView>
 
-
-
-
-
-
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="16"
+        android:gravity="left"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentTop="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:id="@+id/user_city"
+            android:layout_marginBottom="4dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/text_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_weight="9"
+                android:textColor="@color/darkgrey"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:id="@+id/user_education"
+            android:layout_marginBottom="4dp">>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_school_black_24dp"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/text_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MIT"
+                android:textColor="@color/darkgrey"
+                android:layout_weight="9"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:id="@+id/user_followers">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_rss_feed_black_24dp"
+                android:layout_weight="1"
+                android:paddingRight="3dp"
+                android:paddingLeft="2dp"/>
+            <TextView
+                android:id="@+id/text_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="145 followers"
+                android:textColor="@color/darkgrey"
+                android:layout_weight="9"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,4 +164,4 @@
 
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

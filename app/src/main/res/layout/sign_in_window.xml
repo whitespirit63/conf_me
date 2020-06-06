@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
 
     app:cardElevation="10dp">
+
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/darkgrey"
             android:textColorHint="@color/lightgrey"
             android:textSize="20sp"
 
@@ -34,7 +35,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/darkgrey"
             android:textColorHint="@color/lightgrey"
             android:textSize="20sp"
 

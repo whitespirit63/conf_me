@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,10 +24,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.hfad.conf_me.models.User;
 
 
+
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView userName;
+    private TextView text_city;
+
+
     String currentUid;
     private LinearLayout editProfile;
+
+    FragmentManager myFragmentManager;
+    EditProfileFragment editProfileFragment;
 
     @Nullable
     @Override
@@ -44,7 +52,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         Button button = (Button) rootView.findViewById(R.id.arbutton);
         TextView userName = (TextView) rootView.findViewById(R.id.user_name);
-
+        TextView text_city = (TextView) rootView.findViewById(R.id.text_city);
         FirebaseUser userId = FirebaseAuth.getInstance().getCurrentUser() ;
         currentUid = userId.getUid();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -54,7 +62,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                userName.setText(user.getName());
+                userName.setText(user.getName()+" "+ user.getSurname());
+                text_city.setText(user.getCity());
+
 
             }
 
@@ -77,10 +87,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
             }
 
         });
+
+
+
 
 
 

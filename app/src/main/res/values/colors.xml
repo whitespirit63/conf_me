@@ -16,6 +16,12 @@
   <color name="green_dark">#00C315</color>
   <color name="green_light">#68D87A</color>
   <color name="black">#000000</color>
-  <color name="lightgrey">#BBAFAF</color>
+
+  <color name="darkgrey">#34344D</color>
+  <color name="purple">#A932FD</color>
+  <color name="blue">#4158FB</color>
+  <color name="lightblue">#14C6FC</color>
+  <color name="lightgrey">#8A8F8F</color>
+
 
 </resources>

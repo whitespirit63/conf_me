@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    static String NAME;
 /*
     private TextView userName;
     private Button sign_out;
@@ -53,6 +55,7 @@ getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 userName.setText(user.getName());
+
 
             }
 

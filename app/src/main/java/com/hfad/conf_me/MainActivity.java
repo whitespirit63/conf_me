@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     private void showRegisterWindow() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Sign up");
-        dialog.setMessage("Input data to sign up");
+        //dialog.setMessage("Input data to sign up");
         //получаем шаблон для встраивания в алерт
         LayoutInflater inflater = LayoutInflater.from(this);
         View register_window = inflater.inflate(R.layout.register_window, null);
@@ -203,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
         final MaterialEditText email = register_window.findViewById(R.id.emailField);
         final MaterialEditText pass = register_window.findViewById(R.id.passField);
         final MaterialEditText name = register_window.findViewById(R.id.nameField);
+        final MaterialEditText city = register_window.findViewById(R.id.cityField);
+        final MaterialEditText surname = register_window.findViewById(R.id.surnameField);
         final MaterialEditText phone = register_window.findViewById(R.id.phoneField);
         //добавляем кнопки отменить и принять
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -225,6 +227,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(TextUtils.isEmpty(phone.getText().toString())){
                     Snackbar.make(root, "Input your phone", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(surname.getText().toString())){
+                    Snackbar.make(root, "Input your surname", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(TextUtils.isEmpty(city.getText().toString())){
+                    Snackbar.make(root, "Input your city", Snackbar.LENGTH_SHORT).show();
                     return;
                 }
                 if(pass.getText().toString().length() < 5){
@@ -257,8 +268,11 @@ public class MainActivity extends AppCompatActivity {
                                 User user = new User();
                                 user.setEmail(email.getText().toString());
                                 user.setName(name.getText().toString());
+                                user.setSurname(surname.getText().toString());
                                 user.setPass(pass.getText().toString());
                                 user.setPhone(phone.getText().toString());
+                                user.setCity(city.getText().toString());
+
 
                                 users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)
