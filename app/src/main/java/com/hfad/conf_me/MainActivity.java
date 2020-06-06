@@ -203,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
         final MaterialEditText email = register_window.findViewById(R.id.emailField);
         final MaterialEditText pass = register_window.findViewById(R.id.passField);
         final MaterialEditText name = register_window.findViewById(R.id.nameField);
-        final MaterialEditText city = register_window.findViewById(R.id.cityField);
         final MaterialEditText surname = register_window.findViewById(R.id.surnameField);
         final MaterialEditText phone = register_window.findViewById(R.id.phoneField);
         //добавляем кнопки отменить и принять
@@ -234,10 +233,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(TextUtils.isEmpty(city.getText().toString())){
-                    Snackbar.make(root, "Input your city", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
+
                 if(pass.getText().toString().length() < 5){
                     Snackbar.make(root, "Input password longer than 5 symbols", Snackbar.LENGTH_SHORT).show();
                     return;
@@ -271,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                                 user.setSurname(surname.getText().toString());
                                 user.setPass(pass.getText().toString());
                                 user.setPhone(phone.getText().toString());
-                                user.setCity(city.getText().toString());
+
 
 
                                 users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())

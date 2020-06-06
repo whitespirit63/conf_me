@@ -51,22 +51,6 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cityField"
-            android:hint="City"
-            android:inputType="text"
-            android:text=""
-            android:textColor="@color/darkgrey"
-            android:textColorHint="@color/lightgrey"
-            android:textSize="20sp"
-
-            app:met_floatingLabel="highlight"
-            app:met_baseColor="#0056d3"
-            app:met_primaryColor="@color/lightblue"
-            app:met_singleLineEllipsis="true" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/emailField"
             android:hint="Email"
             android:inputType="textEmailAddress"
