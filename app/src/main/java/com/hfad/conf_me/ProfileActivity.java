@@ -5,6 +5,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ProfileActivity extends AppCompatActivity {
 
     static String NAME;
+    private Toolbar toolbar;
 /*
     private TextView userName;
     private Button sign_out;
@@ -28,14 +30,16 @@ private Button arbutton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Profile");
 
 
+        BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        //bnv.setOnNavigationItemSelectedListener(getBottomNavigationListener());
+        bnv.setOnNavigationItemSelectedListener(navListener);
 
-BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-//bnv.setOnNavigationItemSelectedListener(getBottomNavigationListener());
-bnv.setOnNavigationItemSelectedListener(navListener);
-
-getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
         new ProfileFragment()).commit();
 /*
         userName = (TextView) findViewById(R.id.user_name);
@@ -99,15 +103,19 @@ getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
                     selectedFragment = new ProfileFragment();
+                    toolbar.setTitle("Profile");
                     break;
                 case R.id.navigation_dialogs:
                     selectedFragment = new DialogsFragment();
+                    toolbar.setTitle("Dialogs");
                     break;
                 case R.id.navigation_search:
                     selectedFragment = new SearchFragment();
+                    toolbar.setTitle("Search");
                     break;
                 case R.id.navigation_ar:
                     selectedFragment = new ARFragment();
+                    toolbar.setTitle("AR");
                     break;
             }
 

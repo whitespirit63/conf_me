@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -84,10 +83,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment editProfileFragment = new EditProfileFragment();
 
-                getActivity().getSupportFragmentManager().beginTransaction().
-                        replace(R.id.fragment_container, editProfileFragment).commit();
+                EditProfileFragment editProfileFragment = new EditProfileFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, editProfileFragment).addToBackStack(null).commit();
             }
 
         });
@@ -104,7 +102,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getActivity(), "Вы нажали на кнопку",
-                Toast.LENGTH_SHORT).show();
+
     }
 }

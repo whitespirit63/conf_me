@@ -269,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
                                 user.setPhone(phone.getText().toString());
                                 user.setDescription("");
 
-
                                 users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

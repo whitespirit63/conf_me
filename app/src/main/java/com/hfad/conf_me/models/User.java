@@ -13,6 +13,7 @@ public class User {
         this.phone = phone;
         this.surname = surname;
         this.description = description;
+
     }
 
     public String getName(){
