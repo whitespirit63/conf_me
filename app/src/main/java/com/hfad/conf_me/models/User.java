@@ -1,17 +1,18 @@
 package com.hfad.conf_me.models;
 
 public class User {
-    public String name, email, pass, phone, surname;
+    public String name, email, pass, phone, surname, description;
 
     public User() {}
 
-    public User(String name, String email, String pass, String phone, String surname) {
+    public User(String name, String email, String pass, String phone, String surname, String description) {
 
         this.name= name;
         this.email = email;
         this.pass = pass;
         this.phone = phone;
         this.surname = surname;
+        this.description = description;
 
     }
 
@@ -57,6 +58,17 @@ public class User {
     public void setPass(String pass) {
         this.pass = pass;
     }
+
+    public String getDescripition(){
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
 
 
 

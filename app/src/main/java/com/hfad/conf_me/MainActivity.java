@@ -267,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
                                 user.setSurname(surname.getText().toString());
                                 user.setPass(pass.getText().toString());
                                 user.setPhone(phone.getText().toString());
+                                user.setDescription("");
 
 
 
