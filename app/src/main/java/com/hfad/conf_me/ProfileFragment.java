@@ -63,9 +63,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 userName.setText(user.getName()+" "+ user.getSurname());
-
-
-
             }
 
             @Override
@@ -87,7 +84,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Fragment editProfileFragment = new EditProfileFragment();
 
+                getActivity().getSupportFragmentManager().beginTransaction().
+                        replace(R.id.fragment_container, editProfileFragment).commit();
             }
 
         });

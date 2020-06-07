@@ -4,10 +4,46 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search Fragment"
-        android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="@string/People"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            >
+        </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_edittext">
+            <EditText
+                android:id="@+id/search_text_1"
+                android:autofillHints="Search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:inputType="text"
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@android:color/transparent"
+                >
+            </EditText>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/list_of_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            >
+
+        </ListView>
+    </LinearLayout>
 
 </RelativeLayout>
