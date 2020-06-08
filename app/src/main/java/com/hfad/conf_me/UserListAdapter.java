@@ -16,19 +16,19 @@ import com.hfad.conf_me.models.User;
 import java.util.List;
 
 public class UserListAdapter extends ArrayAdapter<User> {
+    private Context context;
     private LayoutInflater inflater;
-    private int layout;
     private List<User> users;
 
-    public UserListAdapter(Context context, int resource, List<User> users){
-        super(context, resource, users);
+    public UserListAdapter(Context context, List<User> users){
+        super(context, R.layout.list_of_members_item, users);
         this.users = users;
-        this.layout = resource;
-        this.inflater = LayoutInflater.from(context);
+        this.context = context;
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent){
-
         View view = inflater.inflate(R.layout.list_of_members_item, parent, false);
         ImageView avatar = (ImageView) view.findViewById(R.id.user_avatar_list);
         TextView usernameView = (TextView) view.findViewById(R.id.user_name_list);
