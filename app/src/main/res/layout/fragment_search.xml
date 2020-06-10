@@ -33,7 +33,7 @@
                 android:padding="5dp"
                 android:layout_marginLeft="5dp"
                 android:hint="Search"
-                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
                 >
             </EditText>
         </LinearLayout>

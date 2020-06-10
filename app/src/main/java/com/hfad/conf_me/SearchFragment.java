@@ -116,13 +116,16 @@ public class SearchFragment extends Fragment {
 
     //Оптимальность под большим вопросом
     private void searchItem(String textToFind, int b, int s){
-
         if(b > s){
             searchUser = new ArrayList<User>(users);
         }
         ListIterator<User> listIter = searchUser.listIterator();
+        String textToFindLower = textToFind.toLowerCase();
+        String nameToLower;
         while (listIter.hasNext()) {
-            if (!listIter.next().getName().contains(textToFind)) {
+            User tmpUser = listIter.next();
+            nameToLower = (tmpUser.getName() + " " + tmpUser.getSurname()).toLowerCase();
+            if (!nameToLower.contains(textToFind)) {
                 listIter.remove();
             }
         }
