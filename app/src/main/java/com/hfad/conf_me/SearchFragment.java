@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,9 +42,6 @@ public class SearchFragment extends Fragment {
     private DatabaseReference usersDB;
     private FirebaseUser currentUser;
     UserListAdapter adapter;
-    //UserListAdapter searchAdapter;
-    final private String TAG = "Logging problems:";
-
 
 
     @Nullable
@@ -55,7 +53,6 @@ public class SearchFragment extends Fragment {
         EditText search_edit = (EditText) view.findViewById(R.id.search_user_text);
 
         //Загрузить начальный список
-        System.out.println("Attaching listener");
         dataBase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -74,8 +71,20 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                         // получаем пользователя, которого выбрали в списке
-                        User selectedState = (User)parent.getItemAtPosition(position);
-                        //TODO: Перейти в профиль человек
+                        User selectedUser = (User)parent.getItemAtPosition(position);
+                        UserProfileFragment userProfile = new UserProfileFragment();
+                        Bundle bundle = new Bundle();
+                        //Здесь заполняем bundle. решил не передавать класс, потому что пиздец как долго
+                        bundle.putString("name", selectedUser.name);
+                        bundle.putString("surname", selectedUser.surname);
+                        bundle.putString("pass", selectedUser.pass);
+                        bundle.putString("phone", selectedUser.phone);
+                        bundle.putString("email", selectedUser.email);
+                        bundle.putString("description", selectedUser.description);
+                        //----------------------------------
+                        userProfile.setArguments(bundle);
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, userProfile).
+                                commit();
                     }
                 };
                 listViewUsers.setOnItemClickListener(itemListener);
