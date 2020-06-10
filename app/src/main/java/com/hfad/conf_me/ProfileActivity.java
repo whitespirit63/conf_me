@@ -32,6 +32,7 @@ private Button arbutton;
         setContentView(R.layout.activity_profile);
         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(0xFFFFFFFF);
         toolbar.setTitle("Profile");
 
 

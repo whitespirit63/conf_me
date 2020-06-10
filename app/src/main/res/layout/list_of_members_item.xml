@@ -19,13 +19,13 @@
         <TextView
             android:id="@+id/user_name_list"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:text = ""/>
+            android:layout_height="20dp"
+            android:text = "Andrey Babushkin"/>
         <TextView
             android:id="@+id/tags_list"
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:text=""
+            android:layout_height="20dp"
+            android:text="andreybabushkin2000@gmail.com"
             />
 
     </LinearLayout>
