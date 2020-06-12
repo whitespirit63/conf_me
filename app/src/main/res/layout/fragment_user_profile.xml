@@ -8,8 +8,6 @@
     tools:context="com.hfad.conf_me.ProfileFragment">
 
 
-
-
     <ScrollView
 
         android:layout_width="match_parent"

@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    tools:context="com.hfad.conf_me.ProfileFragment">
-
-
+    tools:context="com.hfad.conf_me.ProfileFragment"
+    android:id="@+id/profile_fragment_main"
+    >
 
 
 <ScrollView
