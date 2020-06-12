@@ -61,23 +61,23 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ((edit_name.getText().toString()!= "") || (edit_surname.getText().toString()!= "")) {
+                if (edit_name.getText().toString()!= ""){
                 String name = edit_name.getText().toString();
                 myRef.child("name").setValue(name);
                 }
-                if ((edit_surname.getText().toString()!= "") || (edit_surname.getText().toString()!= ""))  {
+                if (edit_surname.getText().toString()!= ""){
                 String surname = edit_surname.getText().toString();
                 myRef.child("surname").setValue(surname);
                 }
-                if ((edit_email.getText().toString()!= "") || (edit_surname.getText().toString()!= "")) {
+                if (edit_email.getText().toString()!= ""){
                 String email = edit_email.getText().toString();
                 myRef.child("email").setValue(email);
                 }
-                if ((edit_phone.getText().toString()!= "") || (edit_surname.getText().toString()!= "")) {
+                if (edit_phone.getText().toString()!= ""){
                     String phone = edit_phone.getText().toString();
                     myRef.child("phone").setValue(phone);
                 }
-                if ((edit_description.getText().toString()!= "") || (edit_surname.getText().toString()!= "")) {
+                if (edit_description.getText().toString()!= ""){
                 String description = edit_description.getText().toString();
                     myRef.child("description").setValue(description);
                 }

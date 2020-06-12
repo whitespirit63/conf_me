@@ -100,12 +100,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         currentUid = userId.getUid();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference myRef = database.child("Users/");
-
+        myRef.child(currentUid).child("userid").setValue(currentUid);
         myRef.child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 userName.setText(user.getName()+" "+ user.getSurname());
+
+
             }
 
             @Override

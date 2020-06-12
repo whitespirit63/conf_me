@@ -146,6 +146,7 @@
         android:layout_marginRight="30dp"
         android:layout_alignParentRight="true"
         android:padding="12dp"
+        android:id="@+id/btn_open_dialog"
         >
 
     </ImageView>

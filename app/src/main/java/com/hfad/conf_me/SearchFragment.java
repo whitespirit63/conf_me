@@ -10,15 +10,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +26,6 @@ import com.hfad.conf_me.models.User;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -81,6 +77,7 @@ public class SearchFragment extends Fragment {
                         bundle.putString("phone", selectedUser.phone);
                         bundle.putString("email", selectedUser.email);
                         bundle.putString("description", selectedUser.description);
+                        bundle.putString("user_id", selectedUser.user_id);
                         //----------------------------------
                         userProfile.setArguments(bundle);
                         getFragmentManager().beginTransaction().replace(R.id.fragment_container, userProfile).

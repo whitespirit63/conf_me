@@ -168,20 +168,7 @@
             </LinearLayout>
     </LinearLayout>
 </ScrollView>
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:srcCompat="@drawable/btn_dialog"
-        android:background="@drawable/btn_purple"
-        android:layout_marginTop="400dp"
-        android:layout_marginRight="30dp"
-        android:layout_alignParentRight="true"
-        android:padding="12dp"
 
-
-        >
-
-    </ImageView>
 </RelativeLayout>
 
 
