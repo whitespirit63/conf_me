@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment {
                     User user = singleSnapshot.getValue(User.class);
                     //Проверка, чтобы не выводить в список себя
                     //!!! При обновлении могут добавляться уже находящиеся в списке объекты.
-                    if (!currentUser.getEmail().equals(user.getEmail()))
+                    if (!currentUser.getUid().toString().equals(user.getUser_id()))
                         users.add(user);
                 }
                 searchUser = new ArrayList<User>(users);

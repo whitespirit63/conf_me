@@ -115,7 +115,7 @@ private Button arbutton;
                     toolbar.setTitle("Search");
                     break;
                 case R.id.navigation_ar:
-                    selectedFragment = new ARFragment();
+                    selectedFragment = new CameraXFragment();
                     toolbar.setTitle("AR");
                     break;
             }

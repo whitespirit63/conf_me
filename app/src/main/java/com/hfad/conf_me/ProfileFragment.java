@@ -45,9 +45,6 @@ import com.hfad.conf_me.models.User;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView userName;
     private final int REQUEST_PREMISSION_CAMERA = 1;
-    private static final int SWIPE_MIN_DISTANCE = 130;
-    private static final int SWIPE_MAX_DISTANCE = 300;
-    private static final int SWIPE_MIN_VELOCITY = 200;
     RelativeLayout mainLayout;
 
     String currentUid;
@@ -57,37 +54,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     FragmentManager myFragmentManager;
     EditProfileFragment editProfileFragment;
 
-    @SuppressLint("ClickableViewAccessibility")
-    //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 
         View rootView =
                 inflater.inflate(R.layout.fragment_profile, container, false);
-        camera = null;
-        //CAMERA--------------
-       /* cameraManager = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
-        try{
-            for(String cameraID : cameraManager.getCameraIdList()){
-                CameraCharacteristics chars = cameraManager.getCameraCharacteristics(cameraID);
-                Integer facing = chars.get(CameraCharacteristics.LENS_FACING);
-            }
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }*/
 
-        //-----------------------------------------------
-        GestureDetectorCompat lSwipeDetector = new GestureDetectorCompat(getActivity(), new MyGestureListener());
-        mainLayout = (RelativeLayout) rootView.findViewById(R.id.profile_fragment_main);
-
-        mainLayout.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return lSwipeDetector.onTouchEvent(event);
-            }
-        });
 
         Button arbutton = (Button) rootView.findViewById(R.id.arbutton);
         Button sign_out = (Button) rootView.findViewById(R.id.sign_out);
@@ -100,13 +73,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         currentUid = userId.getUid();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference myRef = database.child("Users/");
-        myRef.child(currentUid).child("userid").setValue(currentUid);
+        myRef.child(currentUid).child("user_id").setValue(currentUid);
         myRef.child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 userName.setText(user.getName()+" "+ user.getSurname());
-
 
             }
 
@@ -141,60 +113,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch(requestCode){
-            case REQUEST_PREMISSION_CAMERA:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-                }else{
-                    Toast.makeText(getActivity(), "Permission Denied!", Toast.LENGTH_SHORT);
-                }
-        }
-
-    }
-
-    private void requestPermission(String permissionName, int permissionRequestCode){
-        ActivityCompat.requestPermissions(getActivity(), new String[]{permissionName}, permissionRequestCode);
-    }
-
 
     @Override
     public void onClick(View v) {
 
-    }
-
-    private class MyGestureListener extends GestureDetector.SimpleOnGestureListener{
-        @Override
-        public boolean onDown(MotionEvent e){
-            return true;
-        }
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY){
-            if(Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_DISTANCE)
-                return false;
-            if(e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_MIN_VELOCITY){
-                if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-                    if(!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)){
-                        requestPermission(Manifest.permission.CAMERA, REQUEST_PREMISSION_CAMERA);
-                    }
-                }
-                else{
-                    //Проверка на наличие камеры
-                    try{
-                        if(getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)){
-                            CameraFragment cameraFragment = new CameraFragment();
-                            getActivity().getSupportFragmentManager().beginTransaction().
-                                    replace(R.id.fragment_container, cameraFragment).addToBackStack(null).commit();
-                        }
-                    }catch (Exception e){
-                        //TODO Вывести предупреждение что камеры нет, такая функция недоступна
-                    }
-                }
-            }
-            return false;
-        }
     }
 
 }
