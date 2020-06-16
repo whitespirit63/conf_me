@@ -6,6 +6,47 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     tools:context="com.hfad.conf_me.ProfileFragment">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints"
+        android:id="@+id/toolbar"
+        android:paddingRight="16dp"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_baseline_select_all_24"
+            android:id="@+id/btn_left"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:text="\@nickname"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_alignLeft="@id/btn_left"
+            android:layout_alignRight="@+id/btn_right"
+            android:gravity="center"
+            />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_dehaze_24"
+                android:id="@+id/btn_right"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
 
 
 
@@ -15,6 +56,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_below="@+id/toolbar"
     >
 
 
@@ -148,7 +190,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:gravity="center"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="0dp"
                 android:layout_alignParentBottom="true"
                 tools:ignore="MissingConstraints">
                 <Button

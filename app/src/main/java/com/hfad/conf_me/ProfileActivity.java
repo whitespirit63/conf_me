@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+
 public class ProfileActivity extends AppCompatActivity {
 
     static String NAME;
-    private Toolbar toolbar;
 /*
     private TextView userName;
     private Button sign_out;
@@ -30,11 +30,12 @@ private Button arbutton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        /*
         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(0xFFFFFFFF);
         toolbar.setTitle("Profile");
-
+*/
 
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         //bnv.setOnNavigationItemSelectedListener(getBottomNavigationListener());
@@ -104,19 +105,19 @@ private Button arbutton;
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
                     selectedFragment = new ProfileFragment();
-                    toolbar.setTitle("Profile");
+
                     break;
                 case R.id.navigation_dialogs:
                     selectedFragment = new DialogsFragment();
-                    toolbar.setTitle("Dialogs");
+
                     break;
                 case R.id.navigation_search:
                     selectedFragment = new SearchFragment();
-                    toolbar.setTitle("Search");
+
                     break;
                 case R.id.navigation_ar:
                     selectedFragment = new ARFragment();
-                    toolbar.setTitle("AR");
+
                     break;
             }
 
@@ -124,6 +125,8 @@ private Button arbutton;
             return true;
         }
     };
+
+
 /*
     @NonNull
     private BottomNavigationView.OnNavigationItemSelectedListener getBottomNavigationListener() {

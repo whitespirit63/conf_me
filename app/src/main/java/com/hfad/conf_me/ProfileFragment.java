@@ -56,7 +56,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         currentUid = userId.getUid();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference myRef = database.child("Users/");
-        myRef.child(currentUid).child("userid").setValue(currentUid);
+        myRef.child(currentUid).child("user_id").setValue(currentUid);
         myRef.child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -88,6 +88,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                 EditProfileFragment editProfileFragment = new EditProfileFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, editProfileFragment).addToBackStack(null).commit();
+            }
+
+        });
+        arbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TestActivity.class);
+                startActivity(intent);
             }
 
         });

@@ -2,27 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints"
+        android:id="@+id/toolbar"
+        android:paddingRight="16dp"
+
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:tools="http://schemas.android.com/tools"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:text="Участники"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                />
+
+
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:text="@string/People"
-            android:textSize="30sp"
-            android:textColor="@color/black"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            >
-        </TextView>
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/rounded_edittext">
+            android:layout_margin="16dp"
+            android:background="@drawable/rounded_edittext"
+            android:orientation="vertical">
             <EditText
                 android:id="@+id/search_user_text"
                 android:autofillHints="Search"
@@ -37,12 +66,42 @@
                 >
             </EditText>
         </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="16dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Сканировать QR"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_purple_border"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:textAllCaps="false"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Параметры поиска"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_purple_border"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
+                    android:shadowDx="5"/>
+
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/list_of_users"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
+
             />
     </LinearLayout>
 

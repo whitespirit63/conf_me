@@ -23,14 +23,15 @@
         android:background="@color/purple"
         app:fabSize="mini"
         android:clickable="true"
-        />
+        tools:ignore="MissingClass" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@id/btn_send">
+        android:layout_toLeftOf="@id/btn_send"
+        tools:ignore="MissingClass">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
