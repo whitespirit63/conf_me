@@ -116,9 +116,10 @@ private Button arbutton;
 
                     break;
                 case R.id.navigation_ar:
-                    selectedFragment = new ARFragment();
-
+                    selectedFragment = new CameraXFragment();
                     break;
+
+
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();

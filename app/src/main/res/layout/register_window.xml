@@ -96,6 +96,7 @@
             app:met_singleLineEllipsis="true" />
 
 
+
     </LinearLayout>
     </ScrollView>
 </androidx.cardview.widget.CardView>

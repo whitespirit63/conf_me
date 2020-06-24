@@ -94,9 +94,88 @@
                     android:shadowDx="5"/>
 
 
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_margin="8dp">
+            <Button
+                android:id="@+id/backend"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Backend"
+                android:background="@drawable/btn_purple_border"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_margin="8dp"/>
+            <Button
+                android:id="@+id/frontend"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Frontend"
+                android:background="@drawable/btn_purple_border"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_margin="8dp"/>
+            <Button
+                android:id="@+id/design"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Design"
+                android:background="@drawable/btn_purple_border"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_margin="8dp"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp">
+            <Button
+                android:id="@+id/data_science"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Data science"
+                android:background="@drawable/btn_purple_border"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+            <Button
+                android:id="@+id/devops"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Devops"
+                android:background="@drawable/btn_purple_border"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+            <Button
+                android:id="@+id/python"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Python"
+                android:background="@drawable/btn_purple_border"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+
         </LinearLayout>
 
         <ListView
+            android:paddingTop="6dp"
             android:id="@+id/list_of_users"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

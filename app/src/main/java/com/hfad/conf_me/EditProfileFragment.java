@@ -1,9 +1,11 @@
 package com.hfad.conf_me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,8 +40,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         View rootView =
                 inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        TextView cancel = (TextView) rootView.findViewById(R.id.cancel);
-        TextView submit = (TextView) rootView.findViewById(R.id.submit);
+        Button sign_out = (Button) rootView.findViewById(R.id.sign_out);
         EditText edit_name = (EditText) rootView.findViewById(R.id.edit_name);
         EditText edit_surname = (EditText) rootView.findViewById(R.id.edit_surname);
         EditText edit_email = (EditText) rootView.findViewById(R.id.edit_email);
@@ -84,6 +85,14 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                 Fragment profileFragment = new Fragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).addToBackStack(null).commit();
 
+            }
+        });
+        sign_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
 

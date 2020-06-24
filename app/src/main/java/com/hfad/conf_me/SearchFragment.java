@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.hfad.conf_me.models.User;
 
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +40,7 @@ public class SearchFragment extends Fragment {
     private DatabaseReference dataBase;
     private DatabaseReference usersDB;
     private FirebaseUser currentUser;
+    public boolean[] array = new boolean[6];
     UserListAdapter adapter;
 
 
@@ -48,6 +52,57 @@ public class SearchFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         EditText search_edit = (EditText) view.findViewById(R.id.search_user_text);
 
+
+
+
+        Button backend = (Button) view.findViewById(R.id.backend);
+        Button frontend = (Button) view.findViewById(R.id.frontend);
+        Button design = (Button) view.findViewById(R.id.design);
+        Button devops = (Button) view.findViewById(R.id.devops);
+        Button data_science = (Button) view.findViewById(R.id.data_science);
+        Button python = (Button) view.findViewById(R.id.python);
+
+        backend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changecolor(backend, 0);
+            }
+        });
+        frontend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changecolor(frontend, 1);
+            }
+        });
+        design.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changecolor(design, 2);
+            }
+        });
+        devops.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changecolor(devops, 3);
+            }
+        });
+        data_science.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                changecolor(data_science, 4);
+            }
+        });
+        python.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                changecolor(python, 5);
+            }
+        });
+
+
+
         //Загрузить начальный список
         dataBase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -56,7 +111,7 @@ public class SearchFragment extends Fragment {
                     User user = singleSnapshot.getValue(User.class);
                     //Проверка, чтобы не выводить в список себя
                     //!!! При обновлении могут добавляться уже находящиеся в списке объекты.
-                    if (!currentUser.getEmail().equals(user.getEmail()))
+                    if (!currentUser.getUid().toString().equals(user.getUser_id()))
                         users.add(user);
                 }
                 searchUser = new ArrayList<User>(users);
@@ -78,6 +133,11 @@ public class SearchFragment extends Fragment {
                         bundle.putString("email", selectedUser.email);
                         bundle.putString("description", selectedUser.description);
                         bundle.putString("user_id", selectedUser.user_id);
+                        bundle.putString("tag1", selectedUser.tag1);
+                        bundle.putString("tag2", selectedUser.tag2);
+                        bundle.putString("tag3", selectedUser.tag3);
+                        bundle.putString("nickname", selectedUser.nickname);
+
                         //----------------------------------
                         userProfile.setArguments(bundle);
                         getFragmentManager().beginTransaction().replace(R.id.fragment_container, userProfile).
@@ -117,6 +177,8 @@ public class SearchFragment extends Fragment {
 
             }
         });
+
+
         return view;
     }
 
@@ -138,4 +200,16 @@ public class SearchFragment extends Fragment {
         adapter = new UserListAdapter(getActivity(), searchUser);
         listViewUsers.setAdapter(adapter);
     }
+
+    private void changecolor(Button element, int i){
+        if (array[i]==false) array[i]=true;
+        else array[i]=false;
+        if (array[i]==true){
+            element.setBackgroundResource(R.drawable.btn_purple_less_radius);
+            element.setTextColor(getResources().getColor(R.color.white));}
+        else {element.setBackgroundResource(R.drawable.btn_purple_border);
+            element.setTextColor(getResources().getColor(R.color.black));}
+
+    }
+
 }

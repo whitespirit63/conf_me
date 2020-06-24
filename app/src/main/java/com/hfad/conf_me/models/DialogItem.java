@@ -8,7 +8,7 @@ public class DialogItem {
 
     public DialogItem(){}
 
-    public DialogItem(String usernName, String userSurname, String userID, String lastMessage){
+    public DialogItem(String userName, String userSurname, String userID, String lastMessage){
         this.userName = userName;
         this.userSurname = userSurname;
         this.userID = userID;
@@ -16,4 +16,35 @@ public class DialogItem {
 
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserSurname() {
+        return userSurname;
+    }
+
+    public void setUserSurname(String userSurname) {
+        this.userSurname = userSurname;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
 }
