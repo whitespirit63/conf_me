@@ -540,7 +540,7 @@ instanceKlass com/android/tools/r8/s/a/b/g
 instanceKlass com/android/tools/r8/dex/k
 instanceKlass com/android/tools/r8/graph/F0
 instanceKlass com/google/common/graph/Traverser$TreeTraverser$2
-instanceKlass com/google/common/graph/Network
+instanceKlass com/google/common/graph/com.hfad.conf_me.Network
 instanceKlass com/google/common/graph/BaseGraph
 instanceKlass com/google/common/graph/PredecessorsFunction
 instanceKlass com/android/tools/r8/dex/j

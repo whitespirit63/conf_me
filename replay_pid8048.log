@@ -443,7 +443,7 @@ instanceKlass java/lang/invoke/LambdaForm$DMH
 instanceKlass com/android/tools/r8/dex/j$c
 instanceKlass com/android/tools/r8/code/o1$a
 instanceKlass com/google/common/graph/Traverser$TreeTraverser$2
-instanceKlass com/google/common/graph/Network
+instanceKlass com/google/common/graph/com.hfad.conf_me.Network
 instanceKlass com/google/common/graph/BaseGraph
 instanceKlass com/google/common/graph/PredecessorsFunction
 instanceKlass com/android/tools/r8/code/L
