@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical">
-    xmlns:android="http://schemas.android.com/apk/res/android" />
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/Toolbar"
-        />
+    android:orientation="vertical"
+    >
+
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -37,7 +36,7 @@
     android:layout_alignParentBottom="true"
     app:menu="@menu/bottom_navigation_menu"
     style="@style/Widget.Design.BottomNavigationView"
-    android:background="@color/darkgrey"
+    android:background="@color/white"
     />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

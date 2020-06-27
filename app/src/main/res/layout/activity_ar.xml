@@ -5,30 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:ignore="MissingClass">
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        tools:ignore="MissingConstraints"
-
-        >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ARActivity"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="40dp"
-            android:textColor="@color/black"/>
-
-
-    </androidx.appcompat.widget.Toolbar>
+    >
 
     <Button
         android:id="@+id/camera_capture_button"

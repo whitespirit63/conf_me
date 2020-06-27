@@ -1,36 +1,25 @@
 package com.hfad.conf_me;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraManager;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,8 +27,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.hfad.conf_me.models.User;
-
+import com.squareup.picasso.Picasso;
 
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
@@ -62,13 +53,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 inflater.inflate(R.layout.fragment_profile, container, false);
 
 
-        Button arbutton = (Button) rootView.findViewById(R.id.arbutton);
-        Button sign_out = (Button) rootView.findViewById(R.id.sign_out);
+
+
         LinearLayout editProfile = (LinearLayout) rootView.findViewById(R.id.edit_profile);
 
-        Button button = (Button) rootView.findViewById(R.id.arbutton);
-        TextView userName = (TextView) rootView.findViewById(R.id.user_name);
+        Button btn_tag1 = (Button) rootView.findViewById(R.id.tag1);
+        Button btn_tag2 = (Button) rootView.findViewById(R.id.tag2);
+        Button btn_tag3 = (Button) rootView.findViewById(R.id.tag3);
 
+
+        TextView userName = (TextView) rootView.findViewById(R.id.user_name);
+        TextView nickname = (TextView) rootView.findViewById(R.id.nickname);
+        ImageView user_foto = (ImageView) rootView.findViewById(R.id.user_foto);
+        TextView user_email = (TextView) rootView.findViewById(R.id.text_email);
         FirebaseUser userId = FirebaseAuth.getInstance().getCurrentUser() ;
         currentUid = userId.getUid();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -79,6 +76,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 userName.setText(user.getName()+" "+ user.getSurname());
+                nickname.setText("@"+user.getNickname());
+                user_email.setText(user.getEmail());
+                btn_tag1.setText(user.getTag1());
+                btn_tag2.setText(user.getTag2());
+                btn_tag3.setText(user.getTag3());
 
             }
 
@@ -86,18 +88,31 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             public void onCancelled(DatabaseError databaseError) {}
 
         });
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://confme-fa7aa.appspot.com");
 
 
-        button.setOnClickListener(this);
-
-        sign_out.setOnClickListener(new View.OnClickListener() {
+        storageRef.child("avatars/"+currentUid+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+            public void onSuccess(Uri uri) {
+
+
+                Picasso.get().load(uri).into(user_foto);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
             }
         });
+
+
+
+
+
+
+
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +123,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             }
 
         });
+
 
         return rootView;
 

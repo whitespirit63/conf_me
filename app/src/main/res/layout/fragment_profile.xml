@@ -5,9 +5,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    tools:context="com.hfad.conf_me.ProfileFragment"
-    android:id="@+id/profile_fragment_main"
-    >
+
+    tools:context="com.hfad.conf_me.ProfileFragment">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints"
+        android:id="@+id/toolbar"
+        android:paddingRight="16dp"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_baseline_select_all_24"
+            android:id="@+id/btn_left"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nickname"
+            android:text="\@nickname"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_alignLeft="@id/btn_left"
+            android:layout_alignRight="@+id/btn_right"
+            android:gravity="center"
+            />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_dehaze_24"
+                android:id="@+id/btn_right"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
 
 
 <ScrollView
@@ -15,13 +58,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_below="@+id/toolbar"
     >
 
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="3000dp"
+            android:orientation="vertical"
+        android:paddingBottom="70dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -34,7 +79,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/foto"
+
                 >
             </ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -44,11 +89,12 @@
             <LinearLayout
                 android:id="@+id/edit_profile"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="16dp"
                 android:orientation="horizontal"
                 android:weightSum="16"
-                tools:ignore="MissingConstraints">
+                tools:ignore="MissingConstraints"
+                android:layout_marginBottom="16dp">
 
 
                 <LinearLayout
@@ -65,13 +111,7 @@
                         android:textColor="@color/purple"
                         android:textSize="24dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Frontend developer"
-                        android:textColor="@color/darkgrey"
 
-                        android:textSize="16dp" />
 
                 </LinearLayout>
                 <ImageView
@@ -83,63 +123,79 @@
 
 
             </LinearLayout>
+        <LinearLayout
+            android:id="@+id/user_data2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="16"
+            android:gravity="left"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile"
+            android:layout_alignParentTop="true"
+
+            tools:ignore="MissingConstraints">
 
             <LinearLayout
-                android:id="@+id/user_data2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="10"
+                android:orientation="horizontal"
+                android:id="@+id/user_email"
+                android:layout_marginBottom="4dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_email_24"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/text_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/darkgrey"
+                    android:layout_weight="9"/>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="16"
-                android:gravity="left"
-                app:layout_constraintTop_toBottomOf="@id/edit_profile"
-                android:layout_alignParentTop="true"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                tools:ignore="MissingConstraints">
-
-                <LinearLayout
+                android:weightSum="3"
+                android:orientation="horizontal"
+                android:layout_margin="8dp">
+                <Button
+                    android:id="@+id/tag1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="10"
-                    android:orientation="horizontal"
-                    android:id="@+id/user_education"
-                    android:layout_marginBottom="4dp">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_school_black_24dp"
-                        android:layout_weight="1" />
-                    <TextView
-                        android:id="@+id/text_education"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="MIT"
-                        android:textColor="@color/darkgrey"
-                        android:layout_weight="9"/>
-                </LinearLayout>
-
-                <LinearLayout
+                    android:layout_height="30dp"
+                    android:text=""
+                    android:background="@drawable/btn_purple_border"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"/>
+                <Button
+                    android:id="@+id/tag2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="10"
-                    android:orientation="horizontal"
-                    android:id="@+id/user_followers">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_rss_feed_black_24dp"
-                        android:layout_weight="1"
-                        android:paddingRight="3dp"
-                        android:paddingLeft="2dp"/>
-                    <TextView
-                        android:id="@+id/text_followers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="145 followers"
-                        android:textColor="@color/darkgrey"
-                        android:layout_weight="9"/>
-                </LinearLayout>
+                    android:layout_height="30dp"
+
+                    android:background="@drawable/btn_purple_border"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"/>
+                <Button
+                    android:id="@+id/tag3"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+
+                    android:background="@drawable/btn_purple_border"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"/>
+
+
             </LinearLayout>
+        </LinearLayout>
+
+
 
             <LinearLayout
                 app:layout_constraintTop_toBottomOf="@id/user_data2"
@@ -148,23 +204,15 @@
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:gravity="center"
+
+                android:layout_marginTop="0dp"
+
                 android:layout_alignParentBottom="true"
                 tools:ignore="MissingConstraints">
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="go to AR"
-                    android:textSize="20dp"
-                    android:id="@+id/arbutton"
-                    android:layout_weight="1"/>
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sign out"
-                    android:textSize="20dp"
-                    android:id="@+id/sign_out"
-                    android:layout_weight="1"/>
+
+
             </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
 

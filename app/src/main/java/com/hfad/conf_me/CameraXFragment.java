@@ -2,6 +2,7 @@ package com.hfad.conf_me;
 
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
@@ -20,13 +21,12 @@ import retrofit2.Call;
 import android.util.Base64;
 
 import android.util.Log;
-import android.util.Rational;
 import android.util.Size;
 import android.view.LayoutInflater;
-import android.view.Surface;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +34,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
-import androidx.camera.core.CameraX;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageProxy;
@@ -68,6 +67,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -79,13 +79,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class CameraXFragment extends Fragment {
-    private boolean first = false;
+
     private int REQUEST_CODE_PERMISSIONS = 101;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA",
             "android.permission.WRITE_EXTERNAL_STORAGE"};
     private Executor executor = Executors.newSingleThreadExecutor();
     PreviewView mPreviewView;
     View rootView;
+    private boolean opened = false;
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,6 +104,30 @@ public class CameraXFragment extends Fragment {
         else{
             ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
+
+        ImageButton btn = (ImageButton) rootView.findViewById(R.id.btn);
+        RelativeLayout list_of_users = (RelativeLayout) rootView.findViewById(R.id.list_of_users);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) list_of_users.getLayoutParams();
+                if (opened == false){
+                    params.height = 1500;
+                    opened = true;
+                    btn.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+                }
+                else{
+                    params.height = 700;
+                    opened = false;
+                    btn.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+                }
+
+                list_of_users.setLayoutParams(params);
+
+
+            }
+        });
 
 
         return rootView;
@@ -148,23 +176,6 @@ public class CameraXFragment extends Fragment {
                 //byte[] bitmapImage = toBitmap(image.getImage());
                 byte[] byteImage = imageToByteArray(image.getImage());
 
-                if(!first) {
-                    File mFolder = new File(getActivity().getFilesDir() + "/sample");
-                    File imgFile = new File(mFolder.getAbsolutePath() + "/thisImage.jpg");
-                    if(!mFolder.exists()){
-                        mFolder.mkdir();
-                    }
-                    if(!imgFile.exists()){
-                        try {
-                            imgFile.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    Log.e("CAMERA_X", mFolder.getAbsolutePath());
-                    writeFrame(imgFile, byteImage);
-                    first = true;
-                }
                 String encodedImage = Base64.encodeToString(byteImage, Base64.DEFAULT);
 
 
@@ -247,41 +258,6 @@ public class CameraXFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
-    /*private Bitmap toBitmap(Image image, int rotationDegrees){
-
-        ByteBuffer ib = ByteBuffer.allocate(image.getHeight() * image.getWidth() * 5);
-
-        ByteBuffer y = image.getPlanes()[0].getBuffer();
-        ByteBuffer cr = image.getPlanes()[1].getBuffer();
-        ByteBuffer cb = image.getPlanes()[2].getBuffer();
-        ib.put(y);
-        ib.put(cb);
-        ib.put(cr);
-
-        YuvImage yuvImage = new YuvImage(ib.array(),
-                ImageFormat.NV21, image.getWidth(), image.getHeight(), null);
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        yuvImage.compressToJpeg(new Rect(0, 0,
-                image.getWidth(), image.getHeight()), 50, out);
-        byte[] imageBytes = out.toByteArray();
-        Bitmap bm = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        Bitmap bitmap = bm;
-
-        // On android the camera rotation and the screen rotation
-        // are off by 90 degrees, so if you are capturing an image
-        // in "portrait" orientation, you'll need to rotate the image.
-        /*if (rotationDegrees != 0) {
-            Matrix matrix = new Matrix();
-            matrix.postRotate(rotationDegrees);
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bm,
-                    bm.getWidth(), bm.getHeight(), true);
-            bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0,
-                    scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
-        }
-        return bitmap;
-    }*/
 
     private byte[] imageToByteArray(Image image) {
         byte[] data = null;

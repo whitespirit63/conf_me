@@ -6,6 +6,47 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     tools:context="com.hfad.conf_me.ProfileFragment">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints"
+        android:id="@+id/toolbar"
+        android:paddingRight="16dp"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+                android:id="@+id/btn_left"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:text=""
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_alignLeft="@id/btn_left"
+                android:layout_alignRight="@+id/btn_right"
+                android:gravity="center"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_more_horiz_24"
+                android:id="@+id/btn_right"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
 
 
     <ScrollView
@@ -13,13 +54,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/white"
         >
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="70dp">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -32,7 +76,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/foto"
+
                     >
                 </ImageView>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -46,30 +90,53 @@
                 android:layout_marginLeft="16dp"
                 android:orientation="horizontal"
                 android:weightSum="16"
-                tools:ignore="MissingConstraints">
+                tools:ignore="MissingConstraints"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                >
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="14"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btn_purple_border"
+                        android:text="Сообщение"
+                        android:textAllCaps="false"
+                        android:layout_weight="1"
+                        android:layout_marginRight="8dp"
+                        android:id="@+id/btn_open_dialog"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btn_purple_border"
+                        android:text="Найти на карте"
+                        android:textAllCaps="false"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"/>
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="Polina Zhavoronova"
                         android:textColor="@color/purple"
-                        android:textSize="24dp" />
+                        android:textSize="24dp"
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Frontend developer"
-                        android:textColor="@color/darkgrey"
+                        />
 
-                        android:textSize="16dp" />
+
 
                 </LinearLayout>
 
@@ -86,8 +153,7 @@
                 android:gravity="left"
                 app:layout_constraintTop_toBottomOf="@id/edit_profile"
                 android:layout_alignParentTop="true"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+
                 tools:ignore="MissingConstraints">
 
                 <LinearLayout
@@ -95,61 +161,65 @@
                     android:layout_height="match_parent"
                     android:weightSum="10"
                     android:orientation="horizontal"
-                    android:id="@+id/user_education"
+                    android:id="@+id/user_email"
                     android:layout_marginBottom="4dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_school_black_24dp"
+                        app:srcCompat="@drawable/ic_baseline_email_24"
                         android:layout_weight="1" />
                     <TextView
-                        android:id="@+id/text_education"
+                        android:id="@+id/text_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MIT"
+                        android:text=""
                         android:textColor="@color/darkgrey"
                         android:layout_weight="9"/>
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="10"
+                    android:layout_height="wrap_content"
+                    android:weightSum="3"
                     android:orientation="horizontal"
-                    android:id="@+id/user_followers">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_rss_feed_black_24dp"
+                    android:layout_margin="8dp">
+                    <Button
+                        android:id="@+id/tag1"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text=""
+                        android:background="@drawable/btn_purple_border"
+                        android:textAllCaps="false"
                         android:layout_weight="1"
-                        android:paddingRight="3dp"
-                        android:paddingLeft="2dp"/>
-                    <TextView
-                        android:id="@+id/text_followers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="145 followers"
-                        android:textColor="@color/darkgrey"
-                        android:layout_weight="9"/>
+                        android:layout_margin="8dp"/>
+                    <Button
+                        android:id="@+id/tag2"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+
+                        android:background="@drawable/btn_purple_border"
+                        android:textAllCaps="false"
+                        android:layout_weight="1"
+                        android:layout_margin="8dp"/>
+                    <Button
+                        android:id="@+id/tag3"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+
+                        android:background="@drawable/btn_purple_border"
+                        android:textAllCaps="false"
+                        android:layout_weight="1"
+                        android:layout_margin="8dp"/>
+
+
                 </LinearLayout>
             </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:srcCompat="@drawable/btn_dialog"
-        android:background="@drawable/btn_purple"
-        android:layout_marginTop="400dp"
-        android:layout_marginRight="30dp"
-        android:layout_alignParentRight="true"
-        android:padding="12dp"
-        android:id="@+id/btn_open_dialog"
-        >
 
-    </ImageView>
 </RelativeLayout>
 
 
