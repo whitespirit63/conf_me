@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.hfad.conf_me.models.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashSet;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;

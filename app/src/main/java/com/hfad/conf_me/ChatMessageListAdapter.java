@@ -12,16 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfad.conf_me.models.ChatMessage;
+import com.hfad.conf_me.models.DialogItem;
 import com.hfad.conf_me.models.User;
 
 import java.util.List;
 
-public class ChatMessageListAdapter extends ArrayAdapter<ChatMessage> {
+public class ChatMessageListAdapter extends ArrayAdapter<DialogItem> {
     private Context context;
     private LayoutInflater inflater;
-    private List<ChatMessage> chatMessages;
+    private List<DialogItem> chatMessages;
 
-    public ChatMessageListAdapter(Context context, List<ChatMessage> chatMessages){
+    public ChatMessageListAdapter(Context context, List<DialogItem> chatMessages){
         super(context, R.layout.dialog_list_item, chatMessages);
         this.chatMessages = chatMessages;
         this.context = context;
@@ -34,10 +35,10 @@ public class ChatMessageListAdapter extends ArrayAdapter<ChatMessage> {
 
         TextView user_name = (TextView) view.findViewById(R.id.user_name);
         TextView last_message = (TextView) view.findViewById(R.id.last_message);
-        ChatMessage chatMessage = chatMessages.get(position);
+        DialogItem chatMessage = chatMessages.get(position);
 
-        user_name.setText(chatMessage.getUserID());
-        last_message.setText(chatMessage.getTextMessage());
+        user_name.setText(chatMessage.getUserName() + " " + chatMessage.getUserSurname());
+        last_message.setText(chatMessage.getLastMessage());
 
         return view;
     }

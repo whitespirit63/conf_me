@@ -13,7 +13,6 @@ public class DialogItem {
         this.userSurname = userSurname;
         this.userID = userID;
         this.lastMessage = lastMessage;
-
     }
 
     public String getUserName() {

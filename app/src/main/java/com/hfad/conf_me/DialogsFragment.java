@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hfad.conf_me.models.ChatMessage;
+import com.hfad.conf_me.models.DialogItem;
 import com.hfad.conf_me.models.User;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,8 +36,9 @@ import static com.hfad.conf_me.R.layout.fragment_dialogs;
 
 public class DialogsFragment extends Fragment {
 
-    private List<ChatMessage> dialogs = new ArrayList();
-    private List<ChatMessage> searchDialogs = new ArrayList();
+    private List<DialogItem> dialogs = new ArrayList();
+
+    //private List<ChatMessage> searchDialogs = new ArrayList();
     private ListView listViewDialogs;
     ChatMessageListAdapter adapter;
     String user_name;
@@ -54,17 +56,27 @@ public class DialogsFragment extends Fragment {
         View root = inflater.inflate(dialog_list_item, container, false);
 
         FirebaseUser userId = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference usersDataBase = FirebaseDatabase.getInstance().getReference("Users");
         currentUid = userId.getUid();
-        Query database = FirebaseDatabase.getInstance().getReference("Dialogs").child(currentUid);
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Dialogs").child(currentUid);
 
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    ChatMessage chatMessage = singleSnapshot.getValue(ChatMessage.class);
-                    dialogs.add(chatMessage);
+                    long maxCount = singleSnapshot.getChildrenCount();
+                    long count = 0;
+                    for(DataSnapshot snapshot: singleSnapshot.getChildren()) {
+                        if(count == maxCount - 1) {
+                            ChatMessage chatMessage = snapshot.getValue(ChatMessage.class);
+                            dialogs.add(new DialogItem(
+                                    "Name", "Surname", singleSnapshot.getKey(), chatMessage.getTextMessage()));
+                        }
+                        count++;
+                    }
                 }
-                searchDialogs = new ArrayList<ChatMessage>(dialogs);
+
+                //searchDialogs = new ArrayList<ChatMessage>(dialogs);
                 listViewDialogs = (ListView) rootView.findViewById(R.id.list_of_dialogs);
                 adapter = new ChatMessageListAdapter(getActivity(), dialogs);
                 listViewDialogs.setAdapter(adapter);
@@ -72,7 +84,7 @@ public class DialogsFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                         // получаем пользователя, которого выбрали в списке
-                        ChatMessage selectedDialog = (ChatMessage) parent.getItemAtPosition(position);
+                        DialogItem selectedDialog = (DialogItem) parent.getItemAtPosition(position);
                         DialogFragment dialogFragment = new DialogFragment();
                         Bundle bundle = new Bundle();
                         //Здесь заполняем bundle. решил не передавать класс, потому что пиздец как долго

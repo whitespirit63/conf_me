@@ -161,7 +161,6 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.v("GAv", s.toString());
                 if(s.toString().length() == 0){
                     searchUser = new ArrayList<User>(users);
                     adapter = new UserListAdapter(getActivity(),  searchUser);
@@ -187,6 +186,7 @@ public class SearchFragment extends Fragment {
         if(b > s){
             searchUser = new ArrayList<User>(users);
         }
+
         ListIterator<User> listIter = searchUser.listIterator();
         String textToFindLower = textToFind.toLowerCase();
         String nameToLower;

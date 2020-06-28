@@ -58,6 +58,7 @@
                 android:textSize="16dp"
                 android:layout_margin="5dp"/>
             <ListView
+                android:id="@+id/camera_user_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

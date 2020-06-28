@@ -25,7 +25,9 @@ import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -48,8 +50,20 @@ import androidx.lifecycle.LifecycleOwner;
 
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.hfad.conf_me.Network.NetworkService;
 import com.hfad.conf_me.Network.PhotoUploadAPI;
+import com.hfad.conf_me.Network.Result;
+import com.hfad.conf_me.models.User;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -64,8 +78,12 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import java.util.concurrent.ExecutionException;
@@ -83,20 +101,55 @@ public class CameraXFragment extends Fragment {
     private int REQUEST_CODE_PERMISSIONS = 101;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA",
             "android.permission.WRITE_EXTERNAL_STORAGE"};
+    private long countOfFrames;
     private Executor executor = Executors.newSingleThreadExecutor();
     PreviewView mPreviewView;
     View rootView;
     private boolean opened = false;
-
-
-
+    //--------------
+    private HashSet<User> users = new HashSet<User>();
+    private DatabaseReference dataBase;
+    private DatabaseReference usersDB;
+    private FirebaseUser currentUser;
+    private ListView listViewUsers;
+    UserListAdapter adapter;
+    HashSet<User> usersInCamera;
+    Retrofit retrofit;
+    PhotoUploadAPI photoUploadAPI;
+    Call call;
+    final Handler handlerTimer = new Handler();
+    //------------------
+    private int prev;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        prev = 0;
+        countOfFrames = 0;
+        usersInCamera = new HashSet<User>();
         rootView =
                 inflater.inflate(R.layout.camera_ar_layout, container, false);
         mPreviewView = (PreviewView) rootView.findViewById(R.id.camera);
+
+        dataBase = FirebaseDatabase.getInstance().getReference("Users/");
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        retrofit = NetworkService.getRetrofit(getActivity());
+        photoUploadAPI = retrofit.create(PhotoUploadAPI.class);
+
+        dataBase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot singleSnapshot: dataSnapshot.getChildren()) {
+                    User user = singleSnapshot.getValue(User.class);
+                    users.add(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         if(allPermissionsGranted()){
             startCamera();
@@ -161,52 +214,98 @@ public class CameraXFragment extends Fragment {
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
 
-        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder().setTargetResolution(new Size(480, 640))
+        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
+                .setTargetResolution(new Size(480, 640))
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST).build();
-
         imageAnalysis.setAnalyzer(executor, new ImageAnalysis.Analyzer() {
             @SuppressLint("UnsafeExperimentalUsageError")
             @Override
             public void analyze(@NonNull ImageProxy image) {
+
                 int rotationDegrees = image.getImageInfo().getRotationDegrees();
-                //Log.e("CAMERA_X_FRAGMENT", image.getWidth() + "x" + image.getHeight());
-                Retrofit retrofit = NetworkService.getRetrofit(getActivity());
-                PhotoUploadAPI photoUploadAPI = retrofit.create(PhotoUploadAPI.class);
-                //---------- Image -> Base64
-                //byte[] bitmapImage = toBitmap(image.getImage());
                 byte[] byteImage = imageToByteArray(image.getImage());
 
                 String encodedImage = Base64.encodeToString(byteImage, Base64.DEFAULT);
+                if(countOfFrames % 10 == 0) {
+                    call = photoUploadAPI.uploadImage(encodedImage);
 
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onResponse(Call call, Response response) {
+                            Log.e("onResponse: ", "TRUE");
+                            Object body = response.body();
+                            if (body != null) {
+                                String foundList = body.toString();
+                                String str[] = foundList.replaceAll("\\[", "").replaceAll("]", "")
+                                        .replaceAll("\"", "").split(",");
+                                List<String> ids = new ArrayList<String>(Arrays.asList(str));
+                                int count = 0;
+                                int maxCount = ids.size();
+                                if (ids.size() != 0 && users.size() != 0 && !foundList.equals("[]")) {
+                                    for (String id : ids) {
+                                        for (User current : users) {
+                                            if (count == maxCount - 1) {
+                                                if (current.user_id.equals(id.substring(0, id.length() - 1))) {
+                                                    usersInCamera.add(current);
+                                                    break;
+                                                }
+                                            } else {
+                                                if (current.user_id.equals(id)) {
+                                                    usersInCamera.add(current);
+                                                    break;
+                                                }
+                                            }
+                                            count++;
+                                        }
+                                    }
+                                    if (usersInCamera.size() != 0 && prev != usersInCamera.size()) {
+                                        listViewUsers = (ListView) rootView.findViewById(R.id.camera_user_list);
+                                        List<User> tmpUsers = new ArrayList<User>(usersInCamera);
+                                        adapter = new UserListAdapter(getActivity(), tmpUsers);
+                                        listViewUsers.setAdapter(adapter);
+                                        prev = usersInCamera.size();
+                                        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                                                // получаем пользователя, которого выбрали в списке
+                                                User selectedUser = (User) parent.getItemAtPosition(position);
+                                                UserProfileFragment userProfile = new UserProfileFragment();
+                                                Bundle bundle = new Bundle();
+                                                //Здесь заполняем bundle. решил не передавать класс, потому что долго
+                                                bundle.putString("name", selectedUser.name);
+                                                bundle.putString("surname", selectedUser.surname);
+                                                bundle.putString("pass", selectedUser.pass);
+                                                bundle.putString("phone", selectedUser.phone);
+                                                bundle.putString("email", selectedUser.email);
+                                                bundle.putString("description", selectedUser.description);
+                                                bundle.putString("user_id", selectedUser.user_id);
+                                                bundle.putString("tag1", selectedUser.tag1);
+                                                bundle.putString("tag2", selectedUser.tag2);
+                                                bundle.putString("tag3", selectedUser.tag3);
+                                                bundle.putString("nickname", selectedUser.nickname);
 
-                //---------------------------------
-                /*int maxLogSize = 1000;
-                for(int i = 0; i <= encodedImage.length() / maxLogSize; i++) {
-                    int start = i * maxLogSize;
-                    int end = (i+1) * maxLogSize;
-                    end = end > encodedImage.length() ? encodedImage.length() : end;
-                    Log.v("CAMERA_X", encodedImage.substring(start, end));
-                }*/
+                                                //----------------------------------
+                                                userProfile.setArguments(bundle);
+                                                getFragmentManager().beginTransaction().replace(R.id.fragment_container, userProfile).
+                                                        commit();
+                                            }
+                                        };
+                                        listViewUsers.setOnItemClickListener(itemListener);
+                                    }
+                                }
 
-                //Log.e("CAMERA_X", "----------------------");
-
-                Call call = photoUploadAPI.uploadImage(encodedImage);
-
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        if(response.body() != null){
-                            Log.e("CAMERA_X_FRAMENT", "Took response " + response.body().toString());
+                            } else {
+                                Log.e("CAMERA_X_FRAGMENT", "SO BAD");
+                            }
                         }
-                        else{
-                            Log.e("CAMERA_X_FRAGMENT", "The body is null");
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call call, Throwable t) {
 
-                    }
-                });
+                        @Override
+                        public void onFailure(Call call, Throwable t) {
+                            Log.e("CAMERA_X_FRAGMENT", "Cannot connect to the server");
+                        }
+                    });
+                }
+                countOfFrames++;
                 image.close();
             }
         });
@@ -247,17 +346,6 @@ public class CameraXFragment extends Fragment {
         return true;
     }
 
-
-    private void writeFrame(File filename, byte[] data){
-        try{
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filename));
-            bos.write(data);
-            bos.flush();
-            bos.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 
     private byte[] imageToByteArray(Image image) {
         byte[] data = null;
